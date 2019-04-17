@@ -165,7 +165,7 @@ function newGame() {
   totalMatched = 0;
   cardID = [];
   cardName = [];
-  document.title = "Star Wars Memory Game";
+  document.title = "Khomotso's Memory Game";
   clock.innerHTML = displayTime(initialGametime);
   minutes.innerHTML = ' minutes';
   flipped.innerHTML = totalFlips;
