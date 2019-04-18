@@ -130,28 +130,24 @@ function newGame() {
 
   // shuffle cards
   let gameDeck = gamecardsArray.shuffleDeck();
-   //create cards and attach to DOM
+   //create cards each card as a div and attach to DOM
   gameDeck.forEach (item => {
-  //  create container for each card
     const cardContainer = document.createElement('div');
-    cardContainer.classList.add('card-container');    
-  //  create each card as div element  
+    cardContainer.classList.add('card-container');     
     const card = document.createElement('div');
     card.classList.add('card');
     card.dataset.name = item.name;
     card.dataset.id = item.id;
-  // create front of card    
-    const cardFaceUp = document.createElement('div');
+  
+    const cardFaceUp = document.createElement('div'); // creating the front of card  
     cardFaceUp.classList.add('card-face-up');
     cardFaceUp.style.backgroundImage = `url(${item.img}`;
-  // create back of card    
-    const cardFaceDown = document.createElement('div');
+      
+    const cardFaceDown = document.createElement('div'); // creating the back of card
     cardFaceDown.classList.add('card-face-down');
     cardFaceDown.style.backgroundImage="url('images/dollar-coin-money.png')";
-    // style back of card    
-    // cardFaceDown.style.backgroundImage = "max-height:200px";
-  // add created div to parent node
-    gameboard.appendChild(cardContainer);
+  
+    gameboard.appendChild(cardContainer);// adding the created div to parent node
     cardContainer.appendChild(card);
     card.appendChild(cardFaceDown);
     card.appendChild(cardFaceUp);
@@ -240,11 +236,11 @@ function playGame(event) {
   if (!clicked.matches('.card-face-down')) {
     return;
   } else {    
-    //  if less than two cards are currently selected (clicked)
-    if (cardID.length < 2 && cardName.length < 2) {
+    
+    if (cardID.length < 2 && cardName.length < 2) { //  if less than two cards are currently selected (clicked)
 
-      // procedure when first card is selected (clicked)               
-      if (cardID.length === 0  && cardName.length === 0) {
+                    
+      if (cardID.length === 0  && cardName.length === 0) {  // procedure when first card is selected (clicked)
         countClicks += 1;  // increase the click counter
         startTimer(initialGametime); 
         flipped.innerHTML = countClicks; // update and display game stats
@@ -254,8 +250,8 @@ function playGame(event) {
         cardID.push(clicked.parentNode.dataset.id); 
         cardName.push(clicked.parentNode.dataset.name);
       } 
-        //  procedure when second card is selected (clicked)          
-        else if (cardID.length === 1 && cardName.length === 1) {
+                 
+        else if (cardID.length === 1 && cardName.length === 1) { //  procedure when second card is selected (clicked) 
           countClicks += 1;  // increase the click counter
           flipped.innerHTML = countClicks;  // update and display game stats
           clickPercentage = (maxCardsFlipped - countClicks) / maxCardsFlipped * 100; // update clickPercentage for star rating
@@ -318,8 +314,8 @@ function timer(seconds) {
     secondsLeft = Math.round((endTime - Date.now()) / 1000);
     timePercentage = ((secondsLeft / initialGametime) * 100); // update timePercentage
     getStarRating(); // update and display game stats
-    // if all time elapsed (secondsLeft reaches 0), stop timer, call timeOver()
-    if (secondsLeft < 0) {
+    
+    if (secondsLeft < 0) { // if all time elapsed (secondsLeft reaches 0), stop timer, call timeOver()
       stopTimer();
       timeOver();
       return;
@@ -444,12 +440,12 @@ function restartGame() {
   }, false);
 }
 
+// if #return-to-game button clicked
 function pauseGame() {
   stopTimer();
   modal[1].style.display = 'block'; // display #pause-game modal
 
-  // if #return-to-game button clicked
-  btnModalBody[2].addEventListener('click', { handleEvent: function () {
+  btnModalBody[2].addEventListener('click', { handleEvent: function () { 
     modal[1].style.display = 'none'; // close #pause-game modal
     restartTimer(secondsLeft);
   }
@@ -468,8 +464,8 @@ function displayScores() {
   makeTimeTable();
   makeFlipsTable();
   modal[4].style.display = 'block'; // display #scores modal
-  // if #exit-modal button (x) is clicked close #scores modal
-  btnExitModal[2].addEventListener('click', { handleEvent: function () {
+  
+  btnExitModal[2].addEventListener('click', { handleEvent: function () { // if #exit-modal button (x) is clicked close #scores modal
     modal[4].style.display = 'none'; // close #scores modal;
     newGame(); 
   }
